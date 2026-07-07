@@ -1,0 +1,42 @@
+
+from typing import Optional
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        prev = dummy
+
+        while prev.next and prev.next.next:
+            first = prev.next
+            second = first.next
+
+
+            first.next = second.next
+            second.next = first
+            prev.next = second
+
+            prev = first
+
+        return dummy.next
+    
+  
+head = ListNode(5)
+head.next = ListNode(6)
+head.next.next = ListNode(7)
+head.next.next.next = ListNode(8)
+
+
+sol = Solution()
+new_head = sol.swapPairs(head)
+
+
+current = new_head
+while current:
+    print(current.val, end=" -> " if current.next else "")
+    current = current.next
